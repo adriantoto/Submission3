@@ -48,9 +48,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         Glide.with(movieViewHolder.itemView.getContext())
                 .load(uri)
                 .into(movieViewHolder.poster);
-
-        // Animation
-        setFadeAnimation(movieViewHolder.itemView);
     }
 
     @Override
@@ -93,11 +90,5 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
-    }
-
-    private void setFadeAnimation(View view) {
-        AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
-        anim.setDuration(1000);
-        view.startAnimation(anim);
     }
 }
