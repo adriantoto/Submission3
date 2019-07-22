@@ -75,6 +75,7 @@ public class MovieFragment extends Fragment {
 
         // Progress Bar Declaration
         progressBar = view.findViewById(R.id.progressBar);
+        progressBar.bringToFront();
 
         //Intent to Detail Activity
         adapter.setOnItemClickListener(new MovieAdapter.OnItemClickListener() {

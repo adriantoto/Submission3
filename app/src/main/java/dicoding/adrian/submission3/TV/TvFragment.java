@@ -77,6 +77,7 @@ public class TvFragment extends Fragment {
 
         // Progress Bar Declaration
         progressBar = view.findViewById(R.id.progressBar_tv);
+        progressBar.bringToFront();
 
         //Intent to Detail Activity
         adapter.setOnItemClickListener(new TvAdapter.OnItemClickListener() {
