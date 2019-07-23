@@ -1,8 +1,11 @@
 package dicoding.adrian.submission3.Movie;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.json.JSONObject;
 
-public class MovieItems {
+public class MovieItems implements Parcelable {
 
     // POJO Properties
     private int id;
@@ -78,4 +81,40 @@ public class MovieItems {
     public void setScore(double score) {
         this.score = score;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.title);
+        dest.writeString(this.released);
+        dest.writeString(this.overview);
+        dest.writeString(this.poster);
+        dest.writeDouble(this.score);
+    }
+
+    protected MovieItems(Parcel in) {
+        this.id = in.readInt();
+        this.title = in.readString();
+        this.released = in.readString();
+        this.overview = in.readString();
+        this.poster = in.readString();
+        this.score = in.readDouble();
+    }
+
+    public static final Parcelable.Creator<MovieItems> CREATOR = new Parcelable.Creator<MovieItems>() {
+        @Override
+        public MovieItems createFromParcel(Parcel source) {
+            return new MovieItems(source);
+        }
+
+        @Override
+        public MovieItems[] newArray(int size) {
+            return new MovieItems[size];
+        }
+    };
 }
