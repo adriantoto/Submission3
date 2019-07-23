@@ -1,15 +1,22 @@
 package dicoding.adrian.submission3.TV;
 
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 import java.util.ArrayList;
 
@@ -34,7 +41,7 @@ public class TvAdapter extends RecyclerView.Adapter<TvAdapter.TvViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TvViewHolder tvViewHolder, int position) {
+    public void onBindViewHolder(@NonNull final TvViewHolder tvViewHolder, int position) {
         tvViewHolder.textViewTitle.setText(mData.get(position).getTitle());
         tvViewHolder.textViewOverview.setText(mData.get(position).getOverview());
         String releaseDate = mData.get(position).getReleased();
@@ -46,6 +53,18 @@ public class TvAdapter extends RecyclerView.Adapter<TvAdapter.TvViewHolder> {
         String uri = "https://image.tmdb.org/t/p/original" + mData.get(position).getPoster();
         Glide.with(tvViewHolder.itemView.getContext())
                 .load(uri)
+                .listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        tvViewHolder.progressBarItemTv.setVisibility(View.GONE);
+                        return false;
+                    }
+                })
                 .into(tvViewHolder.poster);
     }
 
@@ -61,6 +80,7 @@ public class TvAdapter extends RecyclerView.Adapter<TvAdapter.TvViewHolder> {
         TextView textViewOverview;
         RatingBar score;
         TextView textViewScore;
+        ProgressBar progressBarItemTv;
 
         public TvViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -70,6 +90,7 @@ public class TvAdapter extends RecyclerView.Adapter<TvAdapter.TvViewHolder> {
             textViewOverview = itemView.findViewById(R.id.tv_item_overview_tv);
             textViewScore = itemView.findViewById(R.id.tv_item_scoreAngkaHome_tv);
             score = itemView.findViewById(R.id.scoreHome_tv);
+            progressBarItemTv = itemView.findViewById(R.id.progressBar_itemTv);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -3,6 +3,7 @@ package dicoding.adrian.submission3.TV;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import dicoding.adrian.submission3.Movie.DetailMovieActivity;
 import dicoding.adrian.submission3.Movie.MainViewModelMovie;
 import dicoding.adrian.submission3.Movie.MovieAdapter;
 import dicoding.adrian.submission3.Movie.MovieItems;
@@ -47,7 +49,7 @@ public class TvFragment extends Fragment {
         public void onChanged(ArrayList<TvItems> tvItems) {
             if (tvItems != null) {
                 adapter.setData(tvItems);
-                showLoading(false);
+                progressBar.setVisibility(View.GONE);
             }
         }
     };
@@ -83,7 +85,13 @@ public class TvFragment extends Fragment {
         adapter.setOnItemClickListener(new TvAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(TvItems tvItems) {
-                Toast.makeText(getActivity(), tvItems.getTitle(), Toast.LENGTH_SHORT).show();
+                // Define and Start Intent
+                Intent moveWithObjectIntent = new Intent(getActivity(), DetailTvActivity.class);
+                moveWithObjectIntent.putExtra(DetailTvActivity.EXTRA_TV, tvItems);
+                getActivity().startActivity(moveWithObjectIntent);
+
+                // Intent Transition Animation
+                (getActivity()).overridePendingTransition(R.anim.slide_up, R.anim.no_animation);
             }
         });
     }
@@ -105,7 +113,6 @@ public class TvFragment extends Fragment {
 
         // Display The Items
         mainViewModelTv.setTv();
-        showLoading(true);
     }
 
     @Override
@@ -122,15 +129,4 @@ public class TvFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_tv, container, false);
     }
-
-    // Methods
-
-    private void showLoading(Boolean state) {
-        if (state) {
-            progressBar.setVisibility(View.VISIBLE);
-        } else {
-            progressBar.setVisibility(View.GONE);
-        }
-    }
-
 }
