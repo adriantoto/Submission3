@@ -1,9 +1,6 @@
 package dicoding.adrian.submission3.Movie;
 
-
-import android.app.Activity;
 import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -86,7 +82,7 @@ public class MovieFragment extends Fragment {
                 // Define and Start Intent
                 Intent moveWithObjectIntent = new Intent(getActivity(), DetailMovieActivity.class);
                 moveWithObjectIntent.putExtra(DetailMovieActivity.EXTRA_MOVIE, movieItems);
-                getActivity().startActivity(moveWithObjectIntent);
+                Objects.requireNonNull(getActivity()).startActivity(moveWithObjectIntent);
 
                 // Intent Transition Animation
                 (getActivity()).overridePendingTransition(R.anim.slide_up, R.anim.no_animation);
@@ -99,7 +95,7 @@ public class MovieFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         // MainViewModel Instance
-        mainViewModelMovie = ViewModelProviders.of(getActivity()).get(MainViewModelMovie.class);
+        mainViewModelMovie = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(MainViewModelMovie.class);
     }
 
     @Override
@@ -107,7 +103,7 @@ public class MovieFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         // Observer
-        mainViewModelMovie.getMovies().observe(getActivity(), getMovies);
+        mainViewModelMovie.getMovies().observe(Objects.requireNonNull(getActivity()), getMovies);
 
         // Display The Items
         mainViewModelMovie.setMovie();
@@ -122,7 +118,7 @@ public class MovieFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_movie, container, false);

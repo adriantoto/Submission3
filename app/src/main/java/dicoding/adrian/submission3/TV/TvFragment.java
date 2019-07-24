@@ -16,15 +16,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
-import dicoding.adrian.submission3.Movie.DetailMovieActivity;
-import dicoding.adrian.submission3.Movie.MainViewModelMovie;
-import dicoding.adrian.submission3.Movie.MovieAdapter;
-import dicoding.adrian.submission3.Movie.MovieItems;
 import dicoding.adrian.submission3.R;
 
 /**
@@ -88,7 +83,7 @@ public class TvFragment extends Fragment {
                 // Define and Start Intent
                 Intent moveWithObjectIntent = new Intent(getActivity(), DetailTvActivity.class);
                 moveWithObjectIntent.putExtra(DetailTvActivity.EXTRA_TV, tvItems);
-                getActivity().startActivity(moveWithObjectIntent);
+                Objects.requireNonNull(getActivity()).startActivity(moveWithObjectIntent);
 
                 // Intent Transition Animation
                 (getActivity()).overridePendingTransition(R.anim.slide_up, R.anim.no_animation);
@@ -101,7 +96,7 @@ public class TvFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         // MainViewModel Instance
-        mainViewModelTv = ViewModelProviders.of(getActivity()).get(MainViewModelTv.class);
+        mainViewModelTv = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(MainViewModelTv.class);
     }
 
     @Override
@@ -109,7 +104,7 @@ public class TvFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         // Observer
-        mainViewModelTv.getTvs().observe(getActivity(), getTvs);
+        mainViewModelTv.getTvs().observe(Objects.requireNonNull(getActivity()), getTvs);
 
         // Display The Items
         mainViewModelTv.setTv();
@@ -124,7 +119,7 @@ public class TvFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_tv, container, false);
