@@ -27,7 +27,7 @@ public class TvAdapter extends RecyclerView.Adapter<TvAdapter.TvViewHolder> {
     private ArrayList<TvItems> mData = new ArrayList<>();
     private TvAdapter.OnItemClickListener listener;
 
-    public void setData(ArrayList<TvItems> items) {
+    void setData(ArrayList<TvItems> items) {
         mData.clear();
         mData.addAll(items);
         notifyDataSetChanged();
@@ -73,7 +73,7 @@ public class TvAdapter extends RecyclerView.Adapter<TvAdapter.TvViewHolder> {
         return mData.size();
     }
 
-    public class TvViewHolder extends RecyclerView.ViewHolder {
+    class TvViewHolder extends RecyclerView.ViewHolder {
         TextView textViewTitle;
         ImageView poster;
         TextView textViewReleased;
@@ -82,7 +82,7 @@ public class TvAdapter extends RecyclerView.Adapter<TvAdapter.TvViewHolder> {
         TextView textViewScore;
         ProgressBar progressBarItemTv;
 
-        public TvViewHolder(@NonNull View itemView) {
+        TvViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewTitle = itemView.findViewById(R.id.tv_item_title_tv);
             poster = itemView.findViewById(R.id.img_item_poster_tv);
@@ -108,7 +108,7 @@ public class TvAdapter extends RecyclerView.Adapter<TvAdapter.TvViewHolder> {
         void onItemClick(TvItems tvItems);
     }
 
-    public void setOnItemClickListener(TvAdapter.OnItemClickListener listener) {
+    void setOnItemClickListener(TvAdapter.OnItemClickListener listener) {
         this.listener = listener;
     }
 }
