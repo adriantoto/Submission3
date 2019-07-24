@@ -18,8 +18,6 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
-import dicoding.adrian.submission3.Movie.DetailMovieActivity;
-import dicoding.adrian.submission3.Movie.MovieItems;
 import dicoding.adrian.submission3.R;
 
 public class DetailTvActivity extends AppCompatActivity {
