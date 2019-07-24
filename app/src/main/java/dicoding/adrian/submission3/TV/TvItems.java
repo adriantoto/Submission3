@@ -41,44 +41,24 @@ public class TvItems implements Parcelable {
         this.id = id;
     }
 
-    public String getTitle() {
+    String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getReleased() {
+    String getReleased() {
         return released;
     }
 
-    public void setReleased(String released) {
-        this.released = released;
-    }
-
-    public String getOverview() {
+    String getOverview() {
         return overview;
     }
 
-    public void setOverview(String overview) {
-        this.overview = overview;
-    }
-
-    public String getPoster() {
+    String getPoster() {
         return poster;
     }
 
-    public void setPoster(String poster) {
-        this.poster = poster;
-    }
-
-    public double getScore() {
+    double getScore() {
         return score;
-    }
-
-    public void setScore(double score) {
-        this.score = score;
     }
 
     private double score;
@@ -98,7 +78,7 @@ public class TvItems implements Parcelable {
         dest.writeDouble(this.score);
     }
 
-    protected TvItems(Parcel in) {
+    private TvItems(Parcel in) {
         this.id = in.readInt();
         this.title = in.readString();
         this.released = in.readString();
